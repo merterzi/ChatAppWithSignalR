@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "qg+FHpQEWa3CW1gW2vXiJu8Izi/Qp5VqmFrENl4Ol7c=",
+  "Source": "ChatAppWithSignalR",
+  "BasePath": "_content/ChatAppWithSignalR",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

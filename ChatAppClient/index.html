@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="scripts/bootstrap.min.js"></script>
+    <script src="scripts/jquery.min.js"></script>
+    <script src="scripts/signalr.min.js"></script>
+
+    <link rel="stylesheet" href="styles/bootstrap.min.css"/>
+  </head>
+  <body>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8">
+        <div class="row">
+            <div>
+                <input class="form-control form-control-lg" style="width: 30%;" type="text" placeholder="Kullanıcı Adınız" />
+                <button class="btn btn-success leftButton" style="margin-top: 5px;" type="button">Giriş Yap</button>
+            </div>
+          <!--Sidebar-->
+          <div class="col-md-3">
+            <input class="form-control" style="margin-top: 20px;" type="text" placeholder="Oda Adı Giriniz"/>
+            <button type="button" style="margin-top: 5px;" class="btn btn-primary">Oda Oluştur</button>
+
+            <select size="5" style="width: 100%; margin-top: 20px;" class="form-select rooms">
+              <option selected value="-1">Odalar</option>
+            </select>
+            <button type="button" style="margin-top: 5px;" class="btn btn-primary rightButton">Odaya Gir</button>
+            <br>
+            <!--Kullanıcılar-->
+            <label class="form-label" style="margin-top: 20px;">Kullanıcılar</label>
+            <select size="5" style="width: 100%; margin-top: 5px;" class="form-select rooms">
+                <option selected value="-1">Tümü</option>
+            </select>
+          </div>
+          <!--Message-->
+          <div class="col-md-5">
+
+            <div class="list-group messages" style="margin-top: 20px; margin-left: 40px;">
+                <a
+                  class="list-group-item list-group-item-action message"
+                  aria-current="true"
+                >
+                  <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1"></h5>
+                    <h5 class="mb-2"></h5>
+                  </div>
+                  <p class="mb-1"></p>
+                </a>
+              </div>
+
+            <textarea class="form-control" style="margin-top: 10px; margin-left: 40px;" placeholder="Mesaj yazınız" rows="3"></textarea>
+            <button type="button" style="margin-top: 5px; margin-left: 40px;" class="btn btn-primary rightButton">Gönder</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-2"></div>
+    </div>
+  </body>
+</html>

@@ -17,5 +17,17 @@ namespace ChatAppWithSignalR.Hubs
             await Clients.Others.SendAsync("userJoined", userName);
             await Clients.All.SendAsync("users", UserSource.Users);
         }
+
+        public async Task SendMessageAsync(string message, string userName)
+        {
+            var senderUser = UserSource.Users.FirstOrDefault(u => u.ConnectionId.Equals(Context.ConnectionId));
+            if (userName.Trim() == "-1")
+                await Clients.Others.SendAsync("receiveMessage", message, senderUser.UserName);
+            else
+            {
+                var user = UserSource.Users.FirstOrDefault(u => u.UserName.Equals(userName));
+                await Clients.Client(user.ConnectionId).SendAsync("receiveMessage", message, senderUser.UserName);
+            }
+        }
     }
 }

@@ -59,6 +59,28 @@
         connection.on("receiveMessage", (message, userName) => {
           showMessages(message, userName);
         });
+      
+        $("#btnCreateRoom").click(() => {
+          const roomName = $("#txtRoomName").val();
+          connection.invoke("AddGroup", roomName).catch(error => console.log(error));
+        });
+      
+        connection.on("groups", (groups) => {
+          $(".rooms").html("");
+          let options = `<option selected value="-1">Odalar</option>`;
+          $.each(groups, (index, item) => {
+            options += `<option value="${item.groupName}">${item.groupName}</option>`;
+          });
+          $(".rooms").append(options);
+        });
+      
+        $("#btnEnterRoom").click(() => {
+          const roomName = $(".rooms option:selected").val();
+          connection.invoke("AddClientToGroup", roomName).catch(error => console.log(error));
+          connection.invoke("GetClientToGroup", roomName).catch(error => console.log(error));
+        });
+      
+        
       });
     </script>
   </head>
@@ -93,8 +115,9 @@
           type="text"
           placeholder="Oda Adı Giriniz"
           style="margin-bottom: 5px;"
+          id="txtRoomName"
         />
-        <button type="button" class="btn btn-primary" style="margin-bottom: 5px;">
+        <button type="button" class="btn btn-primary" style="margin-bottom: 5px;" id="btnCreateRoom">
           Oda Oluştur
         </button>
 
@@ -108,6 +131,7 @@
         <button
           type="button"
           class="btn btn-primary rightButton"
+          id="btnEnterRoom"
         >
           Odaya Gir
         </button>

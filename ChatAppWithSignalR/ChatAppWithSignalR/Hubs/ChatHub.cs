@@ -29,5 +29,36 @@ namespace ChatAppWithSignalR.Hubs
                 await Clients.Client(user.ConnectionId).SendAsync("receiveMessage", message, senderUser.UserName);
             }
         }
+
+        public async Task AddGroup(string groupName)
+        {
+            await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+
+            var group = new Group()
+            {
+                GroupName = groupName
+            };
+            group.Users.Add(UserSource.Users.FirstOrDefault(u => u.ConnectionId == Context.ConnectionId));
+            GroupSource.Groups.Add(group);
+            await Clients.All.SendAsync("groups", GroupSource.Groups);
+        }
+
+        public async Task AddClientToGroup(string groupName)
+        {
+            var group = GroupSource.Groups.FirstOrDefault(g => g.GroupName.Equals(groupName));
+            var user = UserSource.Users.FirstOrDefault(u => u.ConnectionId == Context.ConnectionId);
+            var result = group.Users.Any(u => u.ConnectionId == user.ConnectionId);
+            if (!result)
+            {
+                group.Users.Add(user);
+                await Groups.AddToGroupAsync(Context.ConnectionId, groupName);
+            }
+        }
+
+        public async Task GetClientToGroup(string groupName)
+        {
+            var group = GroupSource.Groups.FirstOrDefault(g => g.GroupName == groupName);
+            await Clients.Caller.SendAsync("users", groupName == "-1" ? UserSource.Users : group.Users);
+        }
     }
 }

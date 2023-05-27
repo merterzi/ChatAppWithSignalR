@@ -60,5 +60,11 @@ namespace ChatAppWithSignalR.Hubs
             var group = GroupSource.Groups.FirstOrDefault(g => g.GroupName == groupName);
             await Clients.Caller.SendAsync("users", groupName == "-1" ? UserSource.Users : group.Users);
         }
+
+        public async Task SendMessageToGroupAsync(string message, string groupName)
+        {
+            var senderUser = UserSource.Users.FirstOrDefault(u => u.ConnectionId == Context.ConnectionId);
+            await Clients.OthersInGroup(groupName).SendAsync("receiveMessage", message, senderUser.UserName);
+        }
     }
 }

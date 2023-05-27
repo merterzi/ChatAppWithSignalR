@@ -80,7 +80,13 @@
           connection.invoke("GetClientToGroup", roomName).catch(error => console.log(error));
         });
       
-        
+        $("#btnSendMessageToGroup").click(() => {
+          const message = $("#txtMessage").val();
+          const roomName = $(".rooms option:selected").val();
+          connection.invoke("SendMessageToGroupAsync", message, roomName).catch(error => console.log(error));
+
+          showMessages(message, "Sen");
+        });
       });
     </script>
   </head>
@@ -166,6 +172,13 @@
             id="btnSendMessage"
           >
             Gönder
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary rightButton"
+            id="btnSendMessageToGroup"
+          >
+            Odaya Gönder
           </button>
         </div>
         <div class="col-md-4">
